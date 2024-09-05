@@ -49,7 +49,7 @@ public class Player {
     }
 
     public String toString() {
-        return String.format("Player %s has the score: %d", playerName, score);
+        return String.format("Player %s with the score: %d", playerName, score);
     }
 
 

@@ -24,10 +24,33 @@ public class SimpleDiceGame {
     private static ArrayList<Player> initialize() {
         ArrayList<Player> players = new ArrayList<>();
 
+        boolean isValid;
+        int numPlayers = 0;
+        int numDice = 0;
+        int numSides = 0;
+
         Scanner sc = new Scanner(System.in);
 
         System.out.println("Welcome to the Dice Game");
-        System.out.println("First enter the number of players: ");
+
+        do try {
+            System.out.println("First enter the number of players: ");
+            numPlayers = sc.nextInt();
+            System.out.println("You have chosen: " + numPlayers + " players");
+            System.out.println("Next specify how many dice each player should have: ");
+            numDice = sc.nextInt();
+            System.out.println("You have chosen: " + numDice + " dice for each player");
+            System.out.println("Now choose the number of sides for each die: ");
+            numSides = sc.nextInt();
+            System.out.println("You have chosen: " + numSides + " sides for each die");
+            isValid = true;
+        } catch (Exception e) {
+            isValid = false;
+            sc.next();
+            System.out.println("Invalid input " + e);
+        } while (!isValid);
+
+        /*System.out.println("First enter the number of players: ");
         int numPlayers = Integer.parseInt(sc.nextLine());
         System.out.println("You have chosen: " + numPlayers + " players");
         System.out.println("Next specify how many dice each player should have: ");
@@ -36,18 +59,18 @@ public class SimpleDiceGame {
         System.out.println("Now choose the number of sides for each die: ");
         int numSide = Integer.parseInt(sc.nextLine());
         System.out.println("You have chosen: " + numSide + " sides for each die");
-
+*/
         System.out.println("Lastly chose what each player would like to be called: ");
 
         // TODO: add some form of input validation
 
         for (int i = 0; i < numPlayers; i++) {
             System.out.println("Player " + (i + 1) + " please enter your name: ");
-            String playerName = sc.nextLine();
+            String playerName = sc.next();
             Player newPlayer = new Player(playerName);
             players.add(newPlayer);
             for (int j = 0; j < numDice; j++) {
-                newPlayer.addDie(numSide);
+                newPlayer.addDie(numSides);
             }
         }
 
