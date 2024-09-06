@@ -81,6 +81,7 @@ public class SimpleDiceGame {
 
     private static void takeTurn(ArrayList<Player> players) {
         int rounds = 5;
+        int guesses = 3;
         int i;
         Scanner sc = new Scanner(System.in);
 
@@ -102,19 +103,27 @@ public class SimpleDiceGame {
                 int answer = player.getDieValue();
                 System.out.println(answer);
 
-                // every player guesses a value
-                System.out.println("Player " + player.getPlayerName() + " enter your guess: ");
-                int guess = Integer.parseInt(sc.nextLine());
+                for( int j = 0; j < guesses; j++) {
+                    int currentGuess = j + 1;
+                    // every player guesses a value
+                    System.out.println("Player " + player.getPlayerName() + " enter your guess: ");
+                    System.out.printf("This is guess %d out of %d guesses%n", currentGuess, guesses);
+                    int guess = Integer.parseInt(sc.nextLine());
 
-
-                if (guess == answer) {
-                    // if the guess is the same as the answer the current player is awarded a point
-                    // otherwise they get nothing and the next player gets to try
-                    System.out.println("You guessed correctly and have been awarded one point!");
-                    player.increaseScore();
-                } else {
-                    System.out.println("Sorry that guess was not correct!");
+                    if (guess == answer) {
+                        // if the guess is the same as the answer the current player is awarded a point
+                        // otherwise they get nothing and the next player gets to try
+                        System.out.println("You guessed correctly and have been awarded one point!");
+                        player.increaseScore();
+                        // breaks out, otherwise the loop will continue even though a correct answer has been given.
+                        break;
+                    } else if (guess > answer) {
+                        System.out.println("Your guess of " + guess + " was too high! Try again!");
+                    } else if (guess < answer) {
+                        System.out.println("Your guess of " + guess + " was too low! Try again!");
+                    }
                 }
+
 
             }
         }
